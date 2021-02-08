@@ -158,23 +158,23 @@ public class PostController {
     }   
   }
 
-  @PostMapping("/post/search")
+  @PostMapping("/post/search/{id}")
   public String search(@ModelAttribute SearchRequest searchRequest, Model model,
-                       HttpServletRequest request){
+                       HttpServletRequest request, @PathVariable("id") int currentPage){
     UserInfo user = authenService.getLoginedUser(request);
     if (user != null) {  //Người dùng đã login
       model.addAttribute("user", user);
     }
     String keyword = searchRequest.getKeyword();
 
-    Page<Post> page = postService.findByKeyword(keyword);
+    Page<Post> page = postService.findByKeyword(keyword, currentPage);
     List<Post> allPosts = page.getContent();
 
     long totalItems = page.getTotalElements();
     int totalPages = page.getTotalPages();
 
     model.addAttribute("posts", allPosts);
-    model.addAttribute("currentPage", 1);
+    model.addAttribute("currentPage", currentPage);
     model.addAttribute("totalItems", totalItems);
     model.addAttribute("totalPages", totalPages);
     model.addAttribute("searchrequest", new SearchRequest());

@@ -45,8 +45,9 @@ public class PostService implements IPostService {
   }
 
   @Override
-  public Page<Post> findByKeyword(String keyword) {
-    return postRepo.findByKeyword(keyword);
+  public Page<Post> findByKeyword(String keyword, int currentPage) {
+    Pageable pageable = PageRequest.of(currentPage - 1, 3);
+    return postRepo.findByKeyword(keyword, pageable);
   }
 
   @Override
