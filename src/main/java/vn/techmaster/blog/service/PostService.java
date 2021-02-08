@@ -45,7 +45,7 @@ public class PostService implements IPostService {
   }
 
   @Override
-  public List<Post> findByKeyword(String keyword) {
+  public Page<Post> findByKeyword(String keyword) {
     return postRepo.findByKeyword(keyword);
   }
 

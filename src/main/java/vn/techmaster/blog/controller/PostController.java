@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -165,10 +166,21 @@ public class PostController {
       model.addAttribute("user", user);
     }
     String keyword = searchRequest.getKeyword();
-//    System.out.println("keyword = " + keyword);
 
-    model.addAttribute("posts", postService.findByKeyword(keyword));
+    Page<Post> page = postService.findByKeyword(keyword);
+    List<Post> allPosts = page.getContent();
+
+    long totalItems = page.getTotalElements();
+    int totalPages = page.getTotalPages();
+
+    model.addAttribute("posts", allPosts);
+    model.addAttribute("currentPage", 1);
+    model.addAttribute("totalItems", totalItems);
+    model.addAttribute("totalPages", totalPages);
     model.addAttribute("searchrequest", new SearchRequest());
+//
+//    model.addAttribute("posts", postService.findByKeyword(keyword));
+//    model.addAttribute("searchrequest", new SearchRequest());
     return Route.HOME;
   }
 }

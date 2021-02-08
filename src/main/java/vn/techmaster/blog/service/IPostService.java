@@ -13,7 +13,7 @@ import vn.techmaster.blog.model.User;
 public interface IPostService {
   public List<Post> findAll();
   public Page<Post> findAllPage(int currentPage);
-  public List<Post> findByKeyword(String keyword);
+  public Page<Post> findByKeyword(String keyword);
   public List<Post> getAllPostOfUser(User user);  
   public List<Post> getAllPostsByUserID(long user_id);
   public void createNewPost(PostRequest postRequest) throws PostException;
