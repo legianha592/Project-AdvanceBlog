@@ -158,8 +158,8 @@ public class PostController {
     }   
   }
 
-  @PostMapping("/post/search/{id}")
-  public String search(@ModelAttribute SearchRequest searchRequest, Model model,
+  @GetMapping("/post/search/{id}")
+  public String getSearch(@ModelAttribute SearchRequest searchRequest, Model model,
                        HttpServletRequest request, @PathVariable("id") int currentPage){
     UserInfo user = authenService.getLoginedUser(request);
     if (user != null) {  //Người dùng đã login
@@ -177,10 +177,17 @@ public class PostController {
     model.addAttribute("currentPage", currentPage);
     model.addAttribute("totalItems", totalItems);
     model.addAttribute("totalPages", totalPages);
-    model.addAttribute("searchrequest", new SearchRequest());
+    model.addAttribute("searchrequest", searchRequest);
 //
 //    model.addAttribute("posts", postService.findByKeyword(keyword));
 //    model.addAttribute("searchrequest", new SearchRequest());
-    return Route.HOME;
+    return Route.SEARCH;
   }
+
+  @PostMapping("/post/search/{id}")
+  public String search(@ModelAttribute SearchRequest searchRequest, Model model,
+                       HttpServletRequest request, @PathVariable("id") int currentPage){
+    return getSearch(searchRequest, model, request, currentPage);
+  }
+
 }
