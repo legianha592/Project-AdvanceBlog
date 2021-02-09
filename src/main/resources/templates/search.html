@@ -10,7 +10,7 @@
 
     <div class="row mt-2 justify-content-center">
         <div class="mb-3 mt-3">
-            <form th:action="@{/post/{keyword}/1 (keyword=${searchrequest.keyword})}"
+            <form th:action="@{/post/search/1}"
                   th:object="${searchrequest}" method="post">
                 Filter: <input type="text" name="keyword" id="keyword" size="50" th:field="*{keyword}" required />
                 &nbsp;
@@ -36,17 +36,17 @@
 
             <h6 th:if="${totalItems > 0}">
                 <a class="btn btn-primary" th:if="${currentPage > 1}"
-                   th:href="@{/post/{keyword}/1 (keyword=${searchrequest.keyword})}">First</a> &nbsp;&nbsp;
+                   th:href="@{/post/search/1}">First</a> &nbsp;&nbsp;
                 <a class="btn btn-primary" th:if="${currentPage > 1}"
-                   th:href="@{/post/{keyword}/{id}(id=${currentPage-1}, keyword=${searchrequest.keyword})}">Previous</a> &nbsp;&nbsp;
+                   th:href="@{/post/search/{id}(id=${currentPage-1})}">Previous</a> &nbsp;&nbsp;
                 <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-            <a class="btn btn-primary" th:href="@{/post/{keyword}/{id}(id=${i}, keyword=${searchrequest.keyword})}"
+            <a class="btn btn-primary" th:href="@{/post/search/{id}(id=${i})}"
                th:text="${i}"></a> &nbsp;&nbsp;
           </span>
                 <a class="btn btn-primary" th:if="${currentPage < totalPages}"
-                   th:href="@{/post/{keyword}/{id}(id=${currentPage+1}, keyword=${searchrequest.keyword})}">Next</a> &nbsp;&nbsp;
+                   th:href="@{/post/search/{id}(id=${currentPage+1})}">Next</a> &nbsp;&nbsp;
                 <a class="btn btn-primary" th:if="${currentPage < totalPages}"
-                   th:href="@{/post/{keyword}/{id}(id=${totalPages}, keyword=${searchrequest.keyword})}">Last</a>
+                   th:href="@{/post/search/{id}(id=${totalPages})}">Last</a>
             </h6>
         </div>
     </div>

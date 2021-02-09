@@ -40,6 +40,8 @@ public class PostController {
   @Autowired private IAuthenService authenService;
   @Autowired private IPostService postService;
 
+  private String searchKeyword;
+
   @GetMapping("/posts")  //Liệt kê các post của một blogger cụ thể
   public String getAllPosts(Model model, HttpServletRequest request) { 
     UserInfo user = authenService.getLoginedUser(request);
@@ -158,17 +160,15 @@ public class PostController {
     }   
   }
 
-  @GetMapping("/post/{keyword}/{id}")
+  @GetMapping("/post/search/{id}")
   public String getSearch(@ModelAttribute SearchRequest searchRequest, Model model,
-                       HttpServletRequest request, @PathVariable("id") int currentPage,
-                          @PathVariable("keyword") String keyword){
+                       HttpServletRequest request, @PathVariable("id") int currentPage){
     UserInfo user = authenService.getLoginedUser(request);
     if (user != null) {  //Người dùng đã login
       model.addAttribute("user", user);
     }
-    searchRequest.setKeyword(keyword);
 
-    Page<Post> page = postService.findByKeyword(keyword, currentPage);
+    Page<Post> page = postService.findByKeyword(searchKeyword, currentPage);
     List<Post> allPosts = page.getContent();
 
     long totalItems = page.getTotalElements();
@@ -178,18 +178,18 @@ public class PostController {
     model.addAttribute("currentPage", currentPage);
     model.addAttribute("totalItems", totalItems);
     model.addAttribute("totalPages", totalPages);
-    model.addAttribute("searchrequest", searchRequest);
+    model.addAttribute("searchrequest", new SearchRequest());
 //
 //    model.addAttribute("posts", postService.findByKeyword(keyword));
 //    model.addAttribute("searchrequest", new SearchRequest());
     return Route.SEARCH;
   }
 
-  @PostMapping("/post/{keyword}/{id}")
+  @PostMapping("/post/search/{id}")
   public String search(@ModelAttribute SearchRequest searchRequest, Model model,
-                       HttpServletRequest request, @PathVariable("id") int currentPage,
-                       @PathVariable("keyword") String keyword){
-    return getSearch(searchRequest, model, request, currentPage, keyword);
+                       HttpServletRequest request, @PathVariable("id") int currentPage){
+    this.searchKeyword = searchRequest.getKeyword();
+    return getSearch(searchRequest, model, request, currentPage);
   }
 
 }
