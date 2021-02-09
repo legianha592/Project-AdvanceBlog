@@ -158,14 +158,15 @@ public class PostController {
     }   
   }
 
-  @GetMapping("/post/search/{id}")
+  @GetMapping("/post/{keyword}/{id}")
   public String getSearch(@ModelAttribute SearchRequest searchRequest, Model model,
-                       HttpServletRequest request, @PathVariable("id") int currentPage){
+                       HttpServletRequest request, @PathVariable("id") int currentPage,
+                          @PathVariable("keyword") String keyword){
     UserInfo user = authenService.getLoginedUser(request);
     if (user != null) {  //Người dùng đã login
       model.addAttribute("user", user);
     }
-    String keyword = searchRequest.getKeyword();
+    searchRequest.setKeyword(keyword);
 
     Page<Post> page = postService.findByKeyword(keyword, currentPage);
     List<Post> allPosts = page.getContent();
@@ -184,10 +185,11 @@ public class PostController {
     return Route.SEARCH;
   }
 
-  @PostMapping("/post/search/{id}")
+  @PostMapping("/post/{keyword}/{id}")
   public String search(@ModelAttribute SearchRequest searchRequest, Model model,
-                       HttpServletRequest request, @PathVariable("id") int currentPage){
-    return getSearch(searchRequest, model, request, currentPage);
+                       HttpServletRequest request, @PathVariable("id") int currentPage,
+                       @PathVariable("keyword") String keyword){
+    return getSearch(searchRequest, model, request, currentPage, keyword);
   }
 
 }

@@ -10,7 +10,8 @@
 
     <div class="row mt-2 justify-content-center">
       <div class="mb-3 mt-3">
-        <form th:action="@{/post/search/1}" th:object="${searchrequest}" method="post">
+        <form th:action="@{/post/{keyword}/1(keyword=${searchrequest.keyword})}"
+              th:object="${searchrequest}" method="post">
           Filter: <input type="text" name="keyword" id="keyword" size="50" th:field="*{keyword}" required />
           &nbsp;
           <input type="submit" class="btn btn-primary" value="Search" />
