@@ -23,7 +23,7 @@ public class TagController {
     @Autowired
     IAuthenService authenService;
 
-    Long tagId;
+//    Long tagId;
 
     @GetMapping("/tag/{id}")
     public String getPostByTag(@PathVariable("id") Long id, Model model, HttpServletRequest request){
@@ -34,9 +34,7 @@ public class TagController {
 
 //        this.tagId = id;
         List<Post> allPosts = tagService.getAllPostsByTagId(id);
-
-
         model.addAttribute("posts", allPosts);
-        return Route.HOME;
+        return Route.TAG;
     }
 }
