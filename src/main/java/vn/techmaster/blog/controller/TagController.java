@@ -1,6 +1,7 @@
 package vn.techmaster.blog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +23,19 @@ public class TagController {
     @Autowired
     IAuthenService authenService;
 
+    Long tagId;
+
     @GetMapping("/tag/{id}")
     public String getPostByTag(@PathVariable("id") Long id, Model model, HttpServletRequest request){
         UserInfo user = authenService.getLoginedUser(request);
         if (user != null) {  //Người dùng đã login
             model.addAttribute("user", user);
         }
+
+//        this.tagId = id;
         List<Post> allPosts = tagService.getAllPostsByTagId(id);
+
+
         model.addAttribute("posts", allPosts);
         return Route.HOME;
     }

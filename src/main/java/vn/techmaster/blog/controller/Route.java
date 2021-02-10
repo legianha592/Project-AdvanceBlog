@@ -5,6 +5,7 @@ public class Route {
   public static final String REDIRECT_POSTS = "redirect:/posts";
   public static final String HOME = "home.html";
   public static final String SEARCH = "search.html";
+  public static final String TAG = "tag.html";
   public static final String REDIRECT_HOME = "redirect:/";
   public static final String ALLPOSTS = "posts.html";
   public static final String POST = "post.html";
