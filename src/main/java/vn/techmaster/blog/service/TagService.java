@@ -22,10 +22,10 @@ public class TagService implements ITagService{
         List<Post> finalList = new ArrayList<>();
         List<Long> listId = tagRepository.getAllPostIdByTagId(tag_id);
 
-        System.out.println("list id = ");
-        for (Long id : listId){
-            System.out.println("id = " + id);
-        }
+//        System.out.println("list id = ");
+//        for (Long id : listId){
+//            System.out.println("id = " + id);
+//        }
 
         for (Long id : listId){
             for (Post post : postRepository.findAll()){
