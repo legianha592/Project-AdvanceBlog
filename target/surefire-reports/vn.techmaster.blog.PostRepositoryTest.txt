@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: vn.techmaster.blog.PostRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.192 s <<< FAILURE! - in vn.techmaster.blog.PostRepositoryTest
+vn.techmaster.blog.PostRepositoryTest  Time elapsed: 0.191 s  <<< ERROR!
+java.lang.ExceptionInInitializerError
+Caused by: java.nio.file.InvalidPathException: Illegal char <"> at index 0: "C:\Program Files\Java\jdk-15.0.1\bin
+

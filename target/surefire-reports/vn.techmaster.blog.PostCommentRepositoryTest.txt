@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: vn.techmaster.blog.PostCommentRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.359 s - in vn.techmaster.blog.PostCommentRepositoryTest

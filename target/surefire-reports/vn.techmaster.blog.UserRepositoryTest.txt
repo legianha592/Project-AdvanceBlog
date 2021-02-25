@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: vn.techmaster.blog.UserRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.191 s <<< FAILURE! - in vn.techmaster.blog.UserRepositoryTest
+vn.techmaster.blog.UserRepositoryTest  Time elapsed: 0.19 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: java.lang.IllegalStateException: Failed to add PropertySource to Environment
+Caused by: java.io.FileNotFoundException: class path resource [vn/techmaster/blog/testbase/h2.properties] cannot be opened because it does not exist
+

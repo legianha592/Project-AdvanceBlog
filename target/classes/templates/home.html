@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="layout :: head">
+</head>
+
+<body>
+  <div class="container">
+    <menu th:replace="layout :: menu(title='Micro blog page')"></menu>
+
+    <div class="row mt-2 justify-content-center">
+      <div class="mb-3 mt-3">
+        <form th:action="@{/post/search/1}"
+              th:object="${searchrequest}" method="post">
+          Filter: <input type="text" name="keyword" id="keyword" size="50" th:field="*{keyword}" required />
+          &nbsp;
+          <input type="submit" class="btn btn-primary" value="Search" />
+        </form>
+      </div>
+
+      <div class="card mx-2 mb-3" style="max-width: 300px;" th:each="post: ${posts}">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${post.title}"></h5>
+          <h6 class="card-subtitle mb-2 text-muted" th:text="${post.getUser().getFullname()}">Card subtitle</h6>
+          <h6 class="card-subtitle" th:text="${post.comments.size() + ' comment'}"></h6>
+          <p class="card-text" th:text="${#strings.abbreviate(post.content, 100)}">content</p>
+          <a th:href="@{/post/{id}(id=${post.id})}" class="card-link">See more...</a>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <h6 th:if="${totalItems > 0}" th:text="'Total items: ' + ${totalItems}
+            + ' - Page ' + ${currentPage} + ' of ' + ${totalPages}">
+        </h6>
+        <h6 th:if="${totalItems == 0}">Total items: 0</h6>
+
+        <h6 th:if="${totalItems > 0}">
+          <a class="btn btn-primary" th:if="${currentPage > 1}" th:href="@{/page/1}">First</a> &nbsp;&nbsp;
+          <a class="btn btn-primary" th:if="${currentPage > 1}" th:href="@{/page/{id}(id=${currentPage-1})}">Previous</a> &nbsp;&nbsp;
+          <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+            <a class="btn btn-primary" th:href="@{/page/{id}(id=${i})}" th:text="${i}"></a> &nbsp;&nbsp;
+          </span>
+          <a class="btn btn-primary" th:if="${currentPage < totalPages}" th:href="@{/page/{id}(id=${currentPage+1})}">Next</a> &nbsp;&nbsp;
+          <a class="btn btn-primary" th:if="${currentPage < totalPages}" th:href="@{/page/{id}(id=${totalPages})}">Last</a>
+        </h6>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
