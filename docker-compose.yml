@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=blog
+    volumes:
+      - /var/lib/mysql
+  web:
+    image: doantrihung/socket-app
+    ports:
+      - "8005:8080"
+    depends_on:
+      - mysql
