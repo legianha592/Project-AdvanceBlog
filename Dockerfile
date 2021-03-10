@@ -1,4 +1,4 @@
-FROM maven:ibmjava-alpine
-WORKDIR /spring-app
+FROM maven:latest
+WORKDIR /app
 COPY . .
-RUN mvn clean package
+CMD ["mvn", "spring-boot:run"]
