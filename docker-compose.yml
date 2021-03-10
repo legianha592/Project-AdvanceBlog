@@ -8,6 +8,7 @@ services:
       - MYSQL_DATABASE=blog
     volumes:
       - /var/lib/mysql
+      - ./blog.sql:/docker-entrypoint-initdb.d/init.sql
 
   web:
     image: doantrihung/socket-app
